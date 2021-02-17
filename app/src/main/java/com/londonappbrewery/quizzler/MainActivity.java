@@ -2,22 +2,40 @@ package com.londonappbrewery.quizzler;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
 
-    // TODO: Declare constants here
+import com.jcminarro.philology.Philology;
+import com.jcminarro.philology.PhilologyInterceptor;
+import com.jcminarro.philology.PhilologyRepository;
+import com.jcminarro.philology.PhilologyRepositoryFactory;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-    // TODO: Declare member variables here:
+import java.util.Locale;
+
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
+//import com.appscms.otasdk.Otasdk;
+
+public class MainActivity extends AppCompatActivity {
+
     Button truebtn;
     Button falsebtn;
+
     ProgressBar progress;
     TextView questions;
     TextView scr;
@@ -43,15 +61,43 @@ public class MainActivity extends Activity {
     final int pro=(int)Math.ceil(100/mQuestionBank.length);
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(Philology.INSTANCE.wrap(newBase)));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println(super.getClass());
+        Log.d("hello", String.valueOf(super.getClass()));
+        Log.d("hii",this.getClass().toString());
         if(savedInstanceState!=null){
             score=savedInstanceState.getInt("scorekey");
             index=savedInstanceState.getInt("indx");
         }else{
             score=0;
         }
+
         super.onCreate(savedInstanceState);
+
+        PhilologyRepositoryFactory repositoryFactory = new MyPhilologyRepositoryFactory();
+        Philology.INSTANCE.init(repositoryFactory);
+        ViewPump.init(ViewPump.builder().addInterceptor(PhilologyInterceptor.INSTANCE).build());
+
         setContentView(R.layout.activity_main);
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+//        PhilologyRepositoryFactory repositoryFactory = new MyPhilologyRepositoryFactory();
+//        Philology.INSTANCE.init(repositoryFactory);
+//        ViewPump.init(ViewPump.builder().addInterceptor(PhilologyInterceptor.INSTANCE).build());
+
+
+        Log.d("check", String.valueOf(R.string.app_name));
+
+
         truebtn=(Button)findViewById(R.id.true_button);
         falsebtn=(Button)findViewById(R.id.false_button);
         progress=(ProgressBar)findViewById(R.id.progress_bar);
@@ -111,3 +157,36 @@ public class MainActivity extends Activity {
     }
 
 }
+class MyPhilologyRepositoryFactory implements PhilologyRepositoryFactory {
+    @Nullable
+    @Override
+    public PhilologyRepository getPhilologyRepository(@NotNull Locale locale) {
+        if (Locale.ENGLISH.getLanguage().equals(locale.getLanguage())) {
+            return new EnglishPhilologyRepository();
+        }
+        return null;
+    }
+}
+
+class EnglishPhilologyRepository implements PhilologyRepository {
+
+    @Nullable
+    @Override
+    public CharSequence getPlural(@NotNull String s, @NotNull String s1) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getText(@NotNull String s) {
+        Log.d("inside getText",s);
+        return "hello";
+    }
+
+    @Nullable
+    @Override
+    public CharSequence[] getTextArray(@NotNull String s) {
+        return new CharSequence[0];
+    }
+}
+
