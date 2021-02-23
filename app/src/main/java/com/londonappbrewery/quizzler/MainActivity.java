@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     Button truebtn;
     Button falsebtn;
     ProgressBar progress;
+
     TextView questions;
+
     TextView scr;
     int index=0;
     int score=0;
