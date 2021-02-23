@@ -35,14 +35,15 @@ public class MainActivity extends AppCompatActivity {
 
     Button truebtn;
     Button falsebtn;
-
     ProgressBar progress;
+
     TextView questions;
+
     TextView scr;
     int index=0;
     int score=0;
 
-    // TODO: Uncomment to create question bank
+
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
             new TrueFalse(R.string.question_1, true),
             new TrueFalse(R.string.question_2, true),
