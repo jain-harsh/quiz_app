@@ -29,7 +29,6 @@ import java.util.Locale;
 import io.github.inflationx.viewpump.ViewPump;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-//import com.appscms.otasdk.Otasdk;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     TextView scr;
     int index=0;
     int score=0;
+
 
 
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
     };
     final int pro=(int)Math.ceil(100/mQuestionBank.length);
 
-//    @Override
-//    protected void attachBaseContext(Context newBase) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(Philology.INSTANCE.wrap(newBase)));
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-//        PhilologyRepositoryFactory repositoryFactory = new MyPhilologyRepositoryFactory();
-//        Philology.INSTANCE.init(repositoryFactory);
-//        ViewPump.init(ViewPump.builder().addInterceptor(PhilologyInterceptor.INSTANCE).build());
+
+
 
         setContentView(R.layout.activity_main);
         if (android.os.Build.VERSION.SDK_INT > 9)
@@ -89,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
                     StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-//        PhilologyRepositoryFactory repositoryFactory = new MyPhilologyRepositoryFactory();
-//        Philology.INSTANCE.init(repositoryFactory);
-//        ViewPump.init(ViewPump.builder().addInterceptor(PhilologyInterceptor.INSTANCE).build());
 
 
         Log.d("check", String.valueOf(R.string.app_name));
@@ -154,38 +146,5 @@ public class MainActivity extends AppCompatActivity {
         outstate.putInt("scorekey",score);
         outstate.putInt("indx",index);
     }
-
 }
-//class MyPhilologyRepositoryFactory implements PhilologyRepositoryFactory {
-//    @Nullable
-//    @Override
-//    public PhilologyRepository getPhilologyRepository(@NotNull Locale locale) {
-//        if (Locale.ENGLISH.getLanguage().equals(locale.getLanguage())) {
-//            return new EnglishPhilologyRepository();
-//        }
-//        return null;
-//    }
-//}
-
-//class EnglishPhilologyRepository implements PhilologyRepository {
-//
-//    @Nullable
-//    @Override
-//    public CharSequence getPlural(@NotNull String s, @NotNull String s1) {
-//        return null;
-//    }
-//
-//    @Nullable
-//    @Override
-//    public CharSequence getText(@NotNull String s) {
-//        Log.d("inside getText",s);
-//        return "hello";
-//    }
-//
-//    @Nullable
-//    @Override
-//    public CharSequence[] getTextArray(@NotNull String s) {
-//        return new CharSequence[0];
-//    }
-//}
 
