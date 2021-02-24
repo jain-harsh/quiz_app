@@ -29,7 +29,6 @@ import java.util.Locale;
 import io.github.inflationx.viewpump.ViewPump;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-//import com.appscms.otasdk.Otasdk;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,10 +57,7 @@ public class MainActivity extends AppCompatActivity {
     };
     final int pro=(int)Math.ceil(100/mQuestionBank.length);
 
-//    @Override
-//    protected void attachBaseContext(Context newBase) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(Philology.INSTANCE.wrap(newBase)));
-//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
