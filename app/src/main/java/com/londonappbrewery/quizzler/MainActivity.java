@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     int index=0;
     int score=0;
 
-
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
             new TrueFalse(R.string.question_1, true),
             new TrueFalse(R.string.question_2, true),
@@ -143,6 +142,5 @@ public class MainActivity extends AppCompatActivity {
         outstate.putInt("scorekey",score);
         outstate.putInt("indx",index);
     }
-
 }
 
